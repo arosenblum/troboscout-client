@@ -44,23 +44,24 @@ export class EventComponent implements OnInit {
     let total = this.eventList.length;
     let failures = [];
     let successes = [];
+    let self = this;
 
     // iterate events, sending each to the server
     if (total > 0) {
       for (let aScoutingEvent of this.eventList) {
-        axios.post('/myEndpoint/blah', aScoutingEvent).then(function (response) {
+        axios.post('http://trobots5013.com:8080/event', aScoutingEvent).then(function (response) {
           successes.push(aScoutingEvent);
           console.log(response);
           if (failures.length + successes.length === total) {
             // TODO - done now, clear the timeout, and cleanup, or something
-            clearTimeout(this.timer);
+            clearTimeout(self.timer);
           }
         }).catch(function (error) {
           failures.push(aScoutingEvent);
-          console.error(error);
+          console.log(error);
           if (failures.length + successes.length === total) {
             // TODO - done now, clear the timeout, and cleanup, or something
-            clearTimeout(this.timer);
+            clearTimeout(self.timer);
           }
         });
       }
@@ -85,33 +86,20 @@ export class EventComponent implements OnInit {
     this.saveEvent(scoutingEvent);
   }
 
-  cargoFloor() {
+  makeEvent(piece,action, location) {
     console.warn("cargoFloor");
     let scoutingEvent = new ScoutEvent();
-    scoutingEvent.piece = "cargo";
-    scoutingEvent.action = "take";
-    scoutingEvent.location = "floor";
-    this.saveEvent(scoutingEvent);
-  }
-  cargoRocketL() {
-    console.warn("cargoFloor");
-    let scoutingEvent = new ScoutEvent();
-    scoutingEvent.piece = "cargo";
-    scoutingEvent.action = "place";
-    scoutingEvent.location = "RocketL";
-    this.saveEvent(scoutingEvent);
-  }
-
-  cargo(action, location) {
-    console.warn("cargoFloor");
-    let scoutingEvent = new ScoutEvent();
-    scoutingEvent.piece = action;
-    scoutingEvent.action = location;
-    scoutingEvent.location = "RocketL";
+    scoutingEvent.piece = piece;
+    scoutingEvent.action = action;
+    scoutingEvent.location = location;
     this.saveEvent(scoutingEvent);
   }
   getEventList() {
     return this.eventList;
+  }
+  
+  getTimer() {
+  	return this.timer;
   }
 
 }

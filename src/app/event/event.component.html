@@ -1,28 +1,4 @@
 
-<div class="container">
-	<h3>Event List</h3>
-	<table class="table table-condensed">
-		<thead>
-			<tr>
-			<tr>
-				<th>Scouter</th>
-				<th>timestamp</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr class="success" *ngFor="let e of eventList ">
-				<td>{{e.scouter}}</td>
-				<td>{{e.piece}}</td>
-				<td>{{e.action}}</td>
-				<td>{{e.location}}</td>
-				<td>{{e.eventTimestamp}}</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-<hr>
-
 <form [formGroup]="eventForm">
 	<div class="container">
 		<table class="table table-condensed">
@@ -48,25 +24,99 @@
 		</table>
 		<table class="table table-condensed">
 			<tbody>
+			<hr>
+			
 				<tr>
-					<td>
-					<label>Floor</label>
-					</td>
-					<td>
-					<label>Rocket Low</label>
-					</td>
-										<td>
-					<label></label>
-					</td>
+					<td><label>Floor</label></td>
+					<td colspan="2"><label>Rocket High</label></td>
 				</tr>
 				<tr>
-					<td><a (click)="cargoFloor()"> <img
+					<td><a (click)="makeEvent('cargo','take','floor')"> <img
 							src="../../assets/cargo.png" /></a></td>
-					<td><button (click)="cargoRocketL()"
-							[disabled]="!eventForm.valid">Cargo Rocket Low</button></td>
-
+					<td><a (click)="makeEvent('cargo','place','RocketH')"> <img
+							src="../../assets/cargo-success.png" /></a></td>
+					<td><a (click)="makeEvent('cargo','fail','RocketH')"> <img
+							src="../../assets/cargo-fail.png" /></a></td>
+				</tr>
+				<tr>
+					<td><label>Window</label></td>
+					<td colspan="2"><label>Rocket Low</label></td>
+				</tr>
+				<tr>
+					<td><a (click)="makeEvent('cargo','take','window')"> <img
+							src="../../assets/cargo.png" /></a></td>
+					<td><a (click)="makeEvent('cargo','place','RocketL')"> <img
+							src="../../assets/cargo-success.png" /></a></td>
+					<td><a (click)="makeEvent('cargo','fail','RocketL')"> <img
+							src="../../assets/cargo-fail.png" /></a></td>
 				</tr>
 
+				<tr>
+					<td><label>Depot</label></td>
+					<td colspan="2"><label>Cargo Ship</label></td>
+				</tr>
+				<tr>
+					<td><a (click)="makeEvent('cargo','take','depot')"> <img
+							src="../../assets/cargo.png" /></a></td>
+					<td><a (click)="makeEvent('cargo','place','cargo ship')">
+							<img src="../../assets/cargo-success.png" />
+					</a></td>
+					<td><a (click)="makeEvent('cargo','fail','cargo ship')"> <img
+							src="../../assets/cargo-fail.png" /></a></td>
+				</tr>
+				<tr>
+					<td><label>Preload</label></td>
+					<td colspan="2"><label>Drop</label></td>
+				</tr>
+				<hr>
+				
+				<tr>
+					<td><a (click)="makeEvent('cargo','take','pre')"> <img
+							src="../../assets/cargo.png" /></a></td>
+					<td colspan="2"><a
+						(click)="makeEvent('cargo','place','drop')"> <img
+							src="../../assets/drop.png" /></a></td>
+				</tr>
+				<tr></tr>
+				<tr>
+					<td><label>Floor</label></td>
+					<td colspan="2"><label>Rocket High</label></td>
+				</tr>
+				<tr>
+					<td><a (click)="makeEvent('hatch','take','floor')"> <img
+							src="../../assets/hatch.png" /></a></td>
+					<td><a (click)="makeEvent('hatch','place','RocketH')"> <img
+							src="../../assets/hatch-success.png" />
+					</a></td>
+					<td><a (click)="makeEvent('hatch','fail','RocketH')"> <img
+							src="../../assets/hatch-fail.png" /></a></td>
+				</tr>
+				<tr>
+					<td><label>Brushes</label></td>
+					<td colspan="2"><label>Rocket Low</label></td>
+				</tr>
+				<tr>
+					<td><a (click)="makeEvent('hatch','take','brushes')"> <img
+							src="../../assets/hatch.png" /></a></td>
+					<td><a (click)="makeEvent('hatch','place','RocketL')"> <img
+							src="../../assets/hatch-success.png" />
+					</a></td>
+					<td><a (click)="makeEvent('hatch','fail','RocketL')"> <img
+							src="../../assets/hatch-fail.png" /></a></td>
+				</tr>
+								<tr>
+					<td><label>Preload</label></td>
+					<td colspan="2"><label>Cargo Ship</label></td>
+				</tr>
+				<tr>
+					<td><a (click)="makeEvent('hatch','take','pre')"> <img
+							src="../../assets/hatch.png" /></a></td>
+					<td><a (click)="makeEvent('hatch','place','cargo ship')"> <img
+							src="../../assets/hatch-success.png" />
+					</a></td>
+					<td><a (click)="makeEvent('hatch','fail','cargo ship')"> <img
+							src="../../assets/hatch-fail.png" /></a></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
