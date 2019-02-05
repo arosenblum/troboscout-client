@@ -4,118 +4,132 @@
 		<table class="table table-condensed">
 			<tbody>
 				<tr>
-					<label> Event: <input type="text" formControlName="event">
+					<label> Event: <input type="text" formControlName="event"
+						(required)="true">
 					</label>
 				</tr>
 				<tr>
 					<label> Scouter: <input type="text"
-						formControlName="scouter">
+						formControlName="scouter" (required)="true">
 					</label>
 				</tr>
 				<tr>
-					<label> Team: <input type="text" formControlName="team">
+					<label> Team: <input type="text" formControlName="team"
+						(required)="true">
 					</label>
 				</tr>
 				<tr>
-					<label> Round: <input type="text" formControlName="round">
+					<label> Round: <input type="text" formControlName="round"
+						(required)="true">
 					</label>
 				</tr>
 			</tbody>
 		</table>
-		<table class="table table-condensed">
+		<table class="table table-sm">
 			<tbody>
-			<hr>
-			
-				<tr>
-					<td><label>Floor</label></td>
-					<td colspan="2"><label>Rocket High</label></td>
-				</tr>
 				<tr>
 					<td><a (click)="makeEvent('cargo','take','floor')"> <img
-							src="../../assets/cargo.png" /></a></td>
+							src="{{(this.hasPiece ? '../../assets/cargo-disabled.png' : '../../assets/cargo.png' )}}" /><br />Floor
+					</a></td>
+					<td></td>
 					<td><a (click)="makeEvent('cargo','place','RocketH')"> <img
-							src="../../assets/cargo-success.png" /></a></td>
+							src="{{(!this.hasCargo() ? '../../assets/cargo-disabled.png' : '../../assets/cargo-success.png' )}}" /><br />
+							Rocket H/M Success
+					</a></td>
 					<td><a (click)="makeEvent('cargo','fail','RocketH')"> <img
-							src="../../assets/cargo-fail.png" /></a></td>
-				</tr>
-				<tr>
-					<td><label>Window</label></td>
-					<td colspan="2"><label>Rocket Low</label></td>
+							src="{{(!this.hasCargo() ? '../../assets/cargo-disabled.png' : '../../assets/cargo-fail.png' )}}" /><br />
+							Rocket H/M Fail
+					</a></td>
 				</tr>
 				<tr>
 					<td><a (click)="makeEvent('cargo','take','window')"> <img
-							src="../../assets/cargo.png" /></a></td>
+							src="{{(this.hasPiece? '../../assets/cargo-disabled.png' : '../../assets/cargo.png' )}}" /><br>Window
+					</a></td>
+					<td></td>
 					<td><a (click)="makeEvent('cargo','place','RocketL')"> <img
-							src="../../assets/cargo-success.png" /></a></td>
+							src="{{(!this.hasCargo() ? '../../assets/cargo-disabled.png' : '../../assets/cargo-success.png' )}}" /><br>Rocket
+							Low Success
+					</a></td>
 					<td><a (click)="makeEvent('cargo','fail','RocketL')"> <img
-							src="../../assets/cargo-fail.png" /></a></td>
-				</tr>
-
-				<tr>
-					<td><label>Depot</label></td>
-					<td colspan="2"><label>Cargo Ship</label></td>
+							src="{{(!this.hasCargo() ? '../../assets/cargo-disabled.png' : '../../assets/cargo-fail.png' )}}" /><br>Rocket
+							Low Fail
+					</a></td>
 				</tr>
 				<tr>
 					<td><a (click)="makeEvent('cargo','take','depot')"> <img
-							src="../../assets/cargo.png" /></a></td>
+							src="{{(this.hasPiece? '../../assets/cargo-disabled.png' : '../../assets/cargo.png' )}}" /><br>Depot
+					</a></td>
+					<td></td>
 					<td><a (click)="makeEvent('cargo','place','cargo ship')">
-							<img src="../../assets/cargo-success.png" />
+							<img
+							src="{{(!this.hasCargo() ? '../../assets/cargo-disabled.png' : '../../assets/cargo-success.png' )}}" />
+							<br>Cargo Ship Success
 					</a></td>
 					<td><a (click)="makeEvent('cargo','fail','cargo ship')"> <img
-							src="../../assets/cargo-fail.png" /></a></td>
+							src="{{(!this.hasCargo() ? '../../assets/cargo-disabled.png' : '../../assets/cargo-fail.png' )}}" /><br>Cargo
+							Ship Fail
+					</a></td>
 				</tr>
-				<tr>
-					<td><label>Preload</label></td>
-					<td colspan="2"><label>Drop</label></td>
-				</tr>
-				<hr>
-				
 				<tr>
 					<td><a (click)="makeEvent('cargo','take','pre')"> <img
-							src="../../assets/cargo.png" /></a></td>
-					<td colspan="2"><a
-						(click)="makeEvent('cargo','place','drop')"> <img
-							src="../../assets/drop.png" /></a></td>
-				</tr>
-				<tr></tr>
-				<tr>
-					<td><label>Floor</label></td>
-					<td colspan="2"><label>Rocket High</label></td>
+							src="{{(this.hasPiece? '../../assets/cargo-disabled.png' : '../../assets/cargo.png' )}}" /><br>Preload
+					</a></td>
+					<td></td>
+					<td colspan="2"><a (click)="makeEventDrop()"> <img
+							src="../../assets/drop.png" /><br>Drop Piece
+					</a></td>
 				</tr>
 				<tr>
 					<td><a (click)="makeEvent('hatch','take','floor')"> <img
-							src="../../assets/hatch.png" /></a></td>
+							src="{{(this.hasPiece? '../../assets/hatch-disabled.png' : '../../assets/hatch.png' )}}" /><br>Floor
+					</a></td>
+					<td></td>
 					<td><a (click)="makeEvent('hatch','place','RocketH')"> <img
-							src="../../assets/hatch-success.png" />
+							src="{{(!this.hasHatch() ? '../../assets/hatch-disabled.png' : '../../assets/hatch-success.png' )}}" />
+							<br>Rocket H/M Success
 					</a></td>
 					<td><a (click)="makeEvent('hatch','fail','RocketH')"> <img
-							src="../../assets/hatch-fail.png" /></a></td>
-				</tr>
-				<tr>
-					<td><label>Brushes</label></td>
-					<td colspan="2"><label>Rocket Low</label></td>
+							src="{{(!this.hasHatch() ? '../../assets/hatch-disabled.png' : '../../assets/hatch-fail.png' )}}" /><br>Rocket
+							H/M Fail
+					</a></td>
 				</tr>
 				<tr>
 					<td><a (click)="makeEvent('hatch','take','brushes')"> <img
-							src="../../assets/hatch.png" /></a></td>
+							src="{{(this.hasPiece? '../../assets/hatch-disabled.png' : '../../assets/hatch.png' )}}" /><br>Brushes
+					</a></td>
+					<td></td>
 					<td><a (click)="makeEvent('hatch','place','RocketL')"> <img
-							src="../../assets/hatch-success.png" />
+							src="{{(!this.hasHatch() ? '../../assets/hatch-disabled.png' : '../../assets/hatch-success.png' )}}" />
+							<br>Rocket Low Success
 					</a></td>
 					<td><a (click)="makeEvent('hatch','fail','RocketL')"> <img
-							src="../../assets/hatch-fail.png" /></a></td>
-				</tr>
-								<tr>
-					<td><label>Preload</label></td>
-					<td colspan="2"><label>Cargo Ship</label></td>
+							src="{{(!this.hasHatch() ? '../../assets/hatch-disabled.png' : '../../assets/hatch-fail.png' )}}" /><br>Rocket
+							Low Fail
+					</a></td>
 				</tr>
 				<tr>
 					<td><a (click)="makeEvent('hatch','take','pre')"> <img
-							src="../../assets/hatch.png" /></a></td>
-					<td><a (click)="makeEvent('hatch','place','cargo ship')"> <img
-							src="../../assets/hatch-success.png" />
+							src="{{(this.hasPiece? '../../assets/hatch-disabled.png' : '../../assets/hatch.png' )}}" /><br>Preload
+					</a></td>
+					<td></td>
+					<td><a (click)="makeEvent('hatch','place','cargo ship')">
+							<img
+							src="{{(!this.hasHatch()? '../../assets/hatch-disabled.png' : '../../assets/hatch-success.png' )}}" />
+							<br>Cargo Ship Success
 					</a></td>
 					<td><a (click)="makeEvent('hatch','fail','cargo ship')"> <img
-							src="../../assets/hatch-fail.png" /></a></td>
+							src="{{(!this.hasHatch() ? '../../assets/hatch-disabled.png' : '../../assets/hatch-fail.png' )}}" /><br>Cargo
+							Ship Fail
+					</a></td>
+				</tr>
+				
+				<tr>
+					<td>Unposted Events:{{this.eventList.length}}</td>
+					<td></td>
+					<td>Posted Events:{{this.successes.length}}</td>
+					<td>Failed Events:{{this.failures.length}}<a (click)="retryFailures()"> Retry
+							
+					</a></td>
 				</tr>
 			</tbody>
 		</table>
