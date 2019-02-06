@@ -59,16 +59,21 @@ export class EventComponent implements OnInit {
 
         axios.post('http://trobots5013.com:8080/event', aScoutingEvent).then(function (response) {
           successes.push(aScoutingEvent);
-          self.eventList = self.eventList.splice(i--,1);
+          self.eventList=self.eventList.splice(i--,1);
           console.log(response);
+          console.log('self event list size = ' + self.eventList.length + "i=" + i);
+          //clearTimeout(self.timer);
         }).catch(function (error) {
           failures.push(aScoutingEvent);
-          self.eventList = self.eventList.splice(i--,1);
+          self.eventList=self.eventList.splice(i--,1);
           console.log(error);
+          console.log('self event list size = ' + self.eventList.length+ "i=" + i);
+          //clearTimeout(self.timer);
         });
-        console.log('event list size = ' + this.eventList.length);
-        this.doWork();
+        console.log('ending event list size = ' + this.eventList.length);
+        
       }
+      this.doWork();
     } else {
       this.doWork();
     }
