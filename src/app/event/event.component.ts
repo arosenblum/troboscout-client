@@ -20,13 +20,16 @@ export class EventComponent implements OnInit {
   hasPiece :boolean = false;
   piece : string;
   matchInProgress = false;
+  errorEvent = false;
+  weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Test 1', 'Test 2'];
 
   eventForm = new FormGroup({
     scouter: new FormControl(''),
     team: new FormControl(''),
     round: new FormControl(''),
     event: new FormControl(''),
-    comment: new FormControl('')
+    comment: new FormControl(''),
+    partner: new FormControl('')
   });
 
   constructor() {
@@ -95,19 +98,27 @@ export class EventComponent implements OnInit {
     scoutingEvent.team = this.eventForm.get('team').value;
     scoutingEvent.round = this.eventForm.get('round').value;
     scoutingEvent.eventTimestamp = new Date();
-    if (scoutingEvent.action == 'take'){
+    scoutingEvent.partner = this.eventForm.get('partner').value;
+    if (scoutingEvent.action == 'take' || scoutingEvent.action == 'climb' 
+    	|| scoutingEvent.action == 'climb-fail' || scoutingEvent.action == 'no-climb'){
     	scoutingEvent.correlationId = scoutingEvent.eventTimestamp;
     	this.lastCorrelationId = scoutingEvent.eventTimestamp;
-    	this.hasPiece=true;
-    	this.piece = scoutingEvent.piece;
-    } else {
-    	if (scoutingEvent.action == 'comment'){
-    		scoutingEvent.correlationId = null;
-    	} else {
-    		scoutingEvent.correlationId = this.lastCorrelationId;
+    	if (scoutingEvent.action == 'take'){
+    		this.hasPiece=true;
+    		this.piece = scoutingEvent.piece;
     	}
-    	this.hasPiece=false;
-    	this.piece = null;
+    } else {
+    	scoutingEvent.correlationId = this.lastCorrelationId;
+    	if (scoutingEvent.action == 'place' || scoutingEvent.action == 'fail' || scoutingEvent.action == 'drop'){
+	    	this.hasPiece=false;
+	    	this.piece = null;
+    	}
+    }
+    if (scoutingEvent.action != 'error'){
+    	this.errorEvent = false;
+    }
+    if (scoutingEvent.correlationId == null){
+    	this.lastCorrelationId = scoutingEvent.eventTimestamp;
     }
     this.eventList.push(scoutingEvent);
   }
@@ -160,6 +171,16 @@ export class EventComponent implements OnInit {
 	    scoutingEvent.comment = this.eventForm.get('comment').value;
 	    this.eventForm.get('comment').setValue('');
 	    this.saveEvent(scoutingEvent);
+  }
+  oops() {
+  	if (!this.errorEvent){
+	    let scoutingEvent = new ScoutEvent();
+	    scoutingEvent.piece = this.piece;
+	    scoutingEvent.action = 'error';
+	    scoutingEvent.location = 'error';
+	    this.saveEvent(scoutingEvent);
+	    this.errorEvent = true;
+	}
   }
   getEventList() {
     return this.eventList;
